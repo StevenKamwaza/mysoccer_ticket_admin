@@ -12,7 +12,7 @@ import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { BrowserRouter } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -30,6 +30,8 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function App() {
+  const navigate = useNavigate();
+ 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -38,17 +40,25 @@ export default function App() {
     const password= data.get('password')
     if(email === '' || password === ''){
       console.log("empty")
+     // error = true
     }
     else{
-      if(email === "steven@gmail.com" && password === "kabe"){
+      if(email === "kabesewa" && password === "kabe"){
         
+        //assuming data exist 
+        console.log("true sure");
+        navigate("/home", {state : {userEmail : email}});
+      }
+      else{
+        //error =true
+
       }
     }
     
   };
 
   return (
-    <BrowserRouter>
+    <>
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
@@ -69,7 +79,9 @@ export default function App() {
             <Typography component="h1" variant="h5">
               Login
             </Typography>
+            
             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            
               <TextField
                 margin="normal"
                 required
@@ -115,7 +127,7 @@ export default function App() {
           <Copyright sx={{ mt: 8, mb: 4 }} />
         </Container>
       </ThemeProvider>
-    </BrowserRouter>
+    </>
     
   );
 }
